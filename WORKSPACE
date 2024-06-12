@@ -215,7 +215,7 @@ http_archive(
     urls = ["https://github.com/googleapis/rules_gapic/archive/v%s.tar.gz" % _rules_gapic_version],
 )
 
-_gapic_generator_go_version = "0.43.0"
+_gapic_generator_go_version = "0.43.1"
 
 http_archive(
     name = "com_googleapis_gapic_generator_go",
@@ -427,8 +427,8 @@ http_archive(
     urls = ["https://github.com/googleapis/gax-dotnet/archive/refs/tags/%s.tar.gz" % _gax_dotnet_version],
 )
 
-_gapic_generator_csharp_version = "1.4.27"
-_gapic_generator_csharp_sha256 = "039d975d38bd403ebf1b3f0ba5d1fb6c2d66a9cd9228c53466f59d36a75c83a6"
+_gapic_generator_csharp_version = "1.4.28"
+_gapic_generator_csharp_sha256 = "73689d144c98fe0165ce9c17d241b67c2c26739d2f5034503900322e37b90ad2"
 
 http_archive(
     name = "gapic_generator_csharp",
@@ -464,7 +464,7 @@ gapic_generator_ruby_repositories()
 # Discovery
 ##############################################################################
 
-_disco_to_proto3_converter_version = "8163e5ea8d8dbcf0899534d2895819ab135ffab5"
+_disco_to_proto3_converter_version = "2091fbeb555cd7151df82b4b1b42f36cbddc1775"
 
 http_archive(
     name = "com_google_disco_to_proto3_converter",
