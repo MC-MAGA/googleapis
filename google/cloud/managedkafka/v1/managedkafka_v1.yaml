@@ -1,7 +1,7 @@
 type: google.api.Service
 config_version: 3
 name: managedkafka.googleapis.com
-title: Apache Kafka for BigQuery API
+title: Managed Service for Apache Kafka API
 
 apis:
 - name: google.cloud.location.Locations
@@ -97,3 +97,4 @@ publishing:
       common:
         destinations:
         - PACKAGE_MANAGER
+  proto_reference_documentation_uri: https://cloud.google.com/managed-kafka/docs/reference/rpc

@@ -27,7 +27,9 @@ proto_library(
         "automation_payload.proto",
         "automationrun_payload.proto",
         "cloud_deploy.proto",
+        "customtargettype_notification_payload.proto",
         "deliverypipeline_notification_payload.proto",
+        "deploypolicy_notification_payload.proto",
         "jobrun_notification_payload.proto",
         "log_enums.proto",
         "release_notification_payload.proto",
@@ -244,7 +246,7 @@ php_gapic_library(
     name = "deploy_php_gapic",
     srcs = [":deploy_proto_with_info"],
     grpc_service_config = "clouddeploy_grpc_service_config.json",
-    migration_mode = "MIGRATING",
+    migration_mode = "NEW_SURFACE_ONLY",
     rest_numeric_enums = True,
     service_yaml = "clouddeploy_v1.yaml",
     transport = "grpc+rest",
@@ -362,6 +364,7 @@ load(
 
 csharp_proto_library(
     name = "deploy_csharp_proto",
+    extra_opts = [],
     deps = [":deploy_proto"],
 )
 

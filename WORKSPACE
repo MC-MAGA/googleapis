@@ -215,7 +215,7 @@ http_archive(
     urls = ["https://github.com/googleapis/rules_gapic/archive/v%s.tar.gz" % _rules_gapic_version],
 )
 
-_gapic_generator_go_version = "0.43.1"
+_gapic_generator_go_version = "0.46.1"
 
 http_archive(
     name = "com_googleapis_gapic_generator_go",
@@ -255,32 +255,12 @@ rules_gapic_repositories()
 
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 
-maven_install(
-    artifacts = PROTOBUF_MAVEN_ARTIFACTS,
-    generate_compat_repositories = True,
-    repositories = [
-        "https://repo.maven.apache.org/maven2/",
-    ],
-)
-
-_gapic_generator_java_version = "2.40.1"
-
-maven_install(
-    artifacts = [
-        "com.google.api:gapic-generator-java:" + _gapic_generator_java_version,
-    ],
-    #Update this False for local development
-    fail_on_missing_checksum = True,
-    repositories = [
-        "m2Local",
-        "https://repo.maven.apache.org/maven2/",
-    ]
-)
+_gapic_generator_java_version = "2.43.0"
 
 http_archive(
     name = "gapic_generator_java",
-    strip_prefix = "sdk-platform-java-%s" % _gapic_generator_java_version,
-    urls = ["https://github.com/googleapis/sdk-platform-java/archive/v%s.zip" % _gapic_generator_java_version],
+    strip_prefix = "sdk-platform-java-test-grpc",
+    urls = ["https://github.com/googleapis/sdk-platform-java/archive/refs/heads/test-grpc.zip"],
 )
 
 # gax-java is part of sdk-platform-java repository
@@ -302,9 +282,33 @@ load("@com_google_api_gax_java//:repositories.bzl", "com_google_api_gax_java_rep
 com_google_api_gax_java_repositories()
 
 load("@io_grpc_grpc_java//:repositories.bzl", "grpc_java_repositories")
+load("@io_grpc_grpc_java//:repositories.bzl", "IO_GRPC_GRPC_JAVA_ARTIFACTS")
+load("@io_grpc_grpc_java//:repositories.bzl", "IO_GRPC_GRPC_JAVA_OVERRIDE_TARGETS")
 
 grpc_java_repositories()
 
+load("@envoy_api//bazel:repositories.bzl", "api_dependencies")
+api_dependencies()
+
+maven_install(
+    artifacts = [
+      "com.google.api:gapic-generator-java:" + _gapic_generator_java_version,
+      "com.google.protobuf:protobuf-javalite:3." + _protobuf_version,
+      ] + PROTOBUF_MAVEN_ARTIFACTS +
+      IO_GRPC_GRPC_JAVA_ARTIFACTS,
+    generate_compat_repositories = True,
+    override_targets = IO_GRPC_GRPC_JAVA_OVERRIDE_TARGETS,
+    #Update this False for local development
+    fail_on_missing_checksum = True,
+    repositories = [
+        "m2Local",
+        "https://repo.maven.apache.org/maven2/",
+    ]
+)
+
+load("@maven//:compat.bzl", "compat_repositories")
+
+compat_repositories()
 ##############################################################################
 # Python
 ##############################################################################
@@ -312,10 +316,12 @@ load("@rules_gapic//python:py_gapic_repositories.bzl", "py_gapic_repositories")
 
 py_gapic_repositories()
 
-_gapic_generator_python_version = "1.18.0"
+_gapic_generator_python_version = "1.18.5"
+_gapic_generator_python_sha256 = "b2c4c1c43c6d0e90fdefa130eed6d89b4f78439e1f5966a035da79056f5c4236"
 
 http_archive(
     name = "gapic_generator_python",
+    sha256 = _gapic_generator_python_sha256,
     strip_prefix = "gapic-generator-python-%s" % _gapic_generator_python_version,
     urls = ["https://github.com/googleapis/gapic-generator-python/archive/v%s.zip" % _gapic_generator_python_version],
 )
@@ -394,7 +400,7 @@ pnpm_repository(name = "pnpm")
 ##############################################################################
 
 # PHP micro-generator
-_gapic_generator_php_version = "1.15.0"
+_gapic_generator_php_version = "1.16.1"
 
 http_archive(
     name = "gapic_generator_php",
@@ -427,8 +433,8 @@ http_archive(
     urls = ["https://github.com/googleapis/gax-dotnet/archive/refs/tags/%s.tar.gz" % _gax_dotnet_version],
 )
 
-_gapic_generator_csharp_version = "1.4.28"
-_gapic_generator_csharp_sha256 = "73689d144c98fe0165ce9c17d241b67c2c26739d2f5034503900322e37b90ad2"
+_gapic_generator_csharp_version = "1.4.32"
+_gapic_generator_csharp_sha256 = "b29078c87d6c0e15ba34ece8365ec5fda90c66e9c7f5ab51fa14a067f3685012"
 
 http_archive(
     name = "gapic_generator_csharp",
@@ -445,9 +451,9 @@ gapic_generator_csharp_repositories()
 # Ruby
 ##############################################################################
 
-_gapic_generator_ruby_version = "v0.32.0"
+_gapic_generator_ruby_version = "v0.35.0"
 
-_gapic_generator_ruby_sha256 = "995652d676ab9657e145549cde87bfeea6bba5b87e72b6b64f6b8f2c9a75a1c1"
+_gapic_generator_ruby_sha256 = "d329f20c25bfc83b5240e41286bd554595a22f7ab18b954b07d4f25ad1c78892"
 
 http_archive(
     name = "gapic_generator_ruby",

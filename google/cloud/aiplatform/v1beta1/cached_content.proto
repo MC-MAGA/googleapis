@@ -54,11 +54,18 @@ message CachedContent {
         [(google.api.field_behavior) = INPUT_ONLY];
   }
 
-  // Immutable. Identifier. The resource name of the cached content
-  // Format:
+  // Immutable. Identifier. The server-generated resource name of the cached
+  // content Format:
   // projects/{project}/locations/{location}/cachedContents/{cached_content}
   string name = 1 [
     (google.api.field_behavior) = IDENTIFIER,
+    (google.api.field_behavior) = IMMUTABLE
+  ];
+
+  // Optional. Immutable. The user-generated meaningful display name of the
+  // cached content.
+  string display_name = 11 [
+    (google.api.field_behavior) = OPTIONAL,
     (google.api.field_behavior) = IMMUTABLE
   ];
 

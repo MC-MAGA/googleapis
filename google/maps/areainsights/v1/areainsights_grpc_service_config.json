@@ -1,9 +1,9 @@
 {
   "methodConfig": [{
     "name": [
-      { "service": "google.cloud/gkeconnect.gateway.v1alpha1.GatewayService" }
+      { "service": "google.maps.areainsights.v1.AreaInsights", "method": "ComputeInsights" }
     ],
-    "timeout": "60s",
+    "timeout": "120s",
     "retryPolicy": {
       "maxAttempts": 5,
       "initialBackoff": "1s",
