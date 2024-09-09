@@ -215,7 +215,7 @@ http_archive(
     urls = ["https://github.com/googleapis/rules_gapic/archive/v%s.tar.gz" % _rules_gapic_version],
 )
 
-_gapic_generator_go_version = "0.46.1"
+_gapic_generator_go_version = "0.46.2"
 
 http_archive(
     name = "com_googleapis_gapic_generator_go",
@@ -255,12 +255,12 @@ rules_gapic_repositories()
 
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 
-_gapic_generator_java_version = "2.43.0"
+_gapic_generator_java_version = "2.44.0"
 
 http_archive(
     name = "gapic_generator_java",
-    strip_prefix = "sdk-platform-java-test-grpc",
-    urls = ["https://github.com/googleapis/sdk-platform-java/archive/refs/heads/test-grpc.zip"],
+    strip_prefix = "sdk-platform-java-%s" % _gapic_generator_java_version,
+    urls = ["https://github.com/googleapis/sdk-platform-java/archive/v%s.zip" % _gapic_generator_java_version],
 )
 
 # gax-java is part of sdk-platform-java repository
@@ -293,7 +293,6 @@ api_dependencies()
 maven_install(
     artifacts = [
       "com.google.api:gapic-generator-java:" + _gapic_generator_java_version,
-      "com.google.protobuf:protobuf-javalite:3." + _protobuf_version,
       ] + PROTOBUF_MAVEN_ARTIFACTS +
       IO_GRPC_GRPC_JAVA_ARTIFACTS,
     generate_compat_repositories = True,
@@ -451,9 +450,9 @@ gapic_generator_csharp_repositories()
 # Ruby
 ##############################################################################
 
-_gapic_generator_ruby_version = "v0.35.0"
+_gapic_generator_ruby_version = "v0.36.0"
 
-_gapic_generator_ruby_sha256 = "d329f20c25bfc83b5240e41286bd554595a22f7ab18b954b07d4f25ad1c78892"
+_gapic_generator_ruby_sha256 = "b13b239be16decc3bce7dae20cfe22b8f9b840c03e86edbdefda412dd4bea205"
 
 http_archive(
     name = "gapic_generator_ruby",

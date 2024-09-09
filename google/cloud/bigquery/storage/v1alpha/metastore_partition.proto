@@ -227,7 +227,7 @@ message ListMetastorePartitionsResponse {
 }
 
 // The top-level message sent by the client to the
-// [Partitions.StreamMetastorePartitions]() method.
+// [Partitions.StreamMetastorePartitions][] method.
 // Follows the default gRPC streaming maximum size of 4 MB.
 message StreamMetastorePartitionsRequest {
   // Required. Reference to the table to where the partition to be added, in the
@@ -254,7 +254,7 @@ message StreamMetastorePartitionsRequest {
 }
 
 // This is the response message sent by the server
-// to the client for the [Partitions.StreamMetastorePartitions]() method when
+// to the client for the [Partitions.StreamMetastorePartitions][] method when
 // the commit is successful. Server will close the stream after sending this
 // message.
 message StreamMetastorePartitionsResponse {
@@ -267,4 +267,16 @@ message StreamMetastorePartitionsResponse {
   // stream. This is only set in the final response message before closing the
   // stream.
   int64 total_partitions_inserted_count = 3;
+}
+
+// Structured custom error message for batch size too large error.
+// The error can be attached as error details in the returned rpc Status for
+// more structured error handling in the client.
+message BatchSizeTooLargeError {
+  // The maximum number of items that are supported in a single batch. This is
+  // returned as a hint to the client to adjust the batch size.
+  int64 max_batch_size = 1;
+
+  // Optional. The error message that is returned to the client.
+  string error_message = 2 [(google.api.field_behavior) = OPTIONAL];
 }
